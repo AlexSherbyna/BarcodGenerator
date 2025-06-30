@@ -10,7 +10,7 @@ import uk.org.okapibarcode.output.Java2DRenderer;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
+import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,15 +37,12 @@ public class BarcodeService {
         Java2DRenderer renderer = new Java2DRenderer(g2d, 1, Color.WHITE, Color.BLACK);
         renderer.render(barcode);
 
-        ImageIO.write(image, "png", new File(fileName +".png"));
+        byte[] bytesImage = getBytesImage(image);
 
-        createPdfFile(width, height, fileName);
-
-        File fileToDelete = new File(fileName +".png");
-        fileToDelete.delete();
+        createPdfFile(width, height, fileName, bytesImage);
     }
 
-    private static void createPdfFile(int width, int height, String filename) throws DocumentException, IOException {
+    private static void createPdfFile(int width, int height, String filename, byte[] imageByte ) throws DocumentException, IOException {
         int spaceWidth = 20;
         int spaceHeight = 10;
 
@@ -55,12 +52,20 @@ public class BarcodeService {
         Document document = new Document(STICKER_SIZE,10F,10F,10F,10F);
         PdfWriter.getInstance(document, new FileOutputStream(pathPDF + filename +".pdf"));
         document.open();
-        document.add(com.itextpdf.text.Image.getInstance(filename +".png"));
+        document.add(com.itextpdf.text.Image.getInstance(imageByte));
         document.close();
     }
 
     protected static void createSerialNumberToPDF(ArrayList<String> barcodeList) throws Exception {
-        for (String ar: barcodeList)
+        for (String ar: barcodeList) {
             createBarcode(ar);
+        }
     }
+
+    private static byte[] getBytesImage(BufferedImage image) throws IOException {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ImageIO.write(image, "jpg", byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
+    }
+
 }
