@@ -5,16 +5,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class WriteSerialNumberToTextFile {
+public class SerialNumberFileWriter  {
     static BufferedWriter bufferedWriter;
 
     protected static void SerialNumberFileWriter(ArrayList<String> barcodeList) throws IOException {
-        String nameFile = barcodeList.getFirst().toUpperCase() +"-" +barcodeList.getLast().toUpperCase();
+        String nameFile = barcodeList.getFirst().toUpperCase() + "-" +barcodeList.getLast().toUpperCase();
 
-        bufferedWriter = new BufferedWriter(new FileWriter("src/barcodeList/" +nameFile +".txt"));
+        bufferedWriter = new BufferedWriter(new FileWriter("src/barcodeList/" + nameFile + ".txt"));
 
         for (String ar: barcodeList) {
-            bufferedWriter.write(ar +"\n");
+            bufferedWriter.write(ar + "\n");
         }
         bufferedWriter.close();
     }

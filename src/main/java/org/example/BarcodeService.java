@@ -50,7 +50,7 @@ public class BarcodeService {
         String pathPDF = "src/pdfFiles/";
 
         Document document = new Document(STICKER_SIZE,10F,10F,10F,10F);
-        PdfWriter.getInstance(document, new FileOutputStream(pathPDF + filename +".pdf"));
+        PdfWriter.getInstance(document, new FileOutputStream(pathPDF + filename + ".pdf"));
         document.open();
         document.add(com.itextpdf.text.Image.getInstance(imageByte));
         document.close();
