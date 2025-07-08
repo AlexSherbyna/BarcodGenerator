@@ -56,9 +56,9 @@ public class BarcodeService {
         document.close();
     }
 
-    protected static void createSerialNumberToPDF(ArrayList<String> barcodeList) throws Exception {
-        for (String ar: barcodeList) {
-            createBarcode(ar);
+    protected static void createSerialNumberPDF(ArrayList<String> barcodeList) throws Exception {
+        for (String barcode: barcodeList) {
+            createBarcode(barcode);
         }
     }
 

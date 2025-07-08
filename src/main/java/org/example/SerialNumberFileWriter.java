@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class SerialNumberFileWriter  {
     static BufferedWriter bufferedWriter;
 
-    protected static void SerialNumberFileWriter(ArrayList<String> barcodeList) throws IOException {
+    protected static void WriteSerialNumberToTextFile(ArrayList<String> barcodeList) throws IOException {
         String nameFile = barcodeList.getFirst().toUpperCase() + "-" +barcodeList.getLast().toUpperCase();
 
         bufferedWriter = new BufferedWriter(new FileWriter("src/barcodeList/" + nameFile + ".txt"));
